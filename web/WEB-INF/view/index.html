@@ -19,28 +19,26 @@
             <i>北京</i>
             <i class="iconfont icon-ai-arrow-down"></i>
           </div>
-          <div class="topbar-right">
+          <div class="topbar-right" th:if="${session.id==null}">
             <a th:href="@{jumpHtml(jump='login')}" class="login">登录</a>
             <a th:href="@{jumpHtml(jump='regist')}" class="register">注册</a>
             <a th:href="@{jumpHtml(jump='cart')}" class="cart iconfont icon-gouwuche">
               购物车
               <div class="cart-num">3</div>
             </a>
+
             <a th:href="@{jumpHtml(jump='book_manager')}" class="admin">后台管理</a>
           </div>
 <!--          登录后风格-->
-<!--          <div class="topbar-right">-->
-<!--            <span>欢迎你<b>张总</b></span>-->
-<!--            <a href="#" class="register">注销</a>-->
-<!--            <a-->
-<!--                    href="pages/cart/cart.jsp"-->
-<!--                    class="cart iconfont icon-gouwuche-->
-<!--			">-->
-<!--              购物车-->
-<!--              <div class="cart-num">3</div>-->
-<!--            </a>-->
-<!--            <a href="./pages/manager/book_manager.html" class="admin">后台管理</a>-->
-<!--          </div>-->
+          <div class="topbar-right" th:unless="${session.id==null}">
+            <span>欢迎你<b th:text="${session.id}">张总</b></span>
+            <a th:href="@{jumpHtml(jump='logout')}" class="register">注销</a>
+            <a th:href="@{jumpHtml(jump='cart')}" class="cart iconfont icon-gouwuche">
+              购物车
+              <div class="cart-num">3</div>
+            </a>
+            <a  th:href="@{jumpHtml(jump='book_manager')}" class="admin">后台管理</a>
+          </div>
         </div>
       </div>
       <div class="header w">
@@ -112,11 +110,11 @@
           <div class="swiper-container">
             <ul class="swiper-wrapper">
               <li class="swiper-slide">
-                <img src="../../static/uploads/banner4.jpg" alt="">
+                <img src="../../static/uploads/cate4.jpg" alt="">
                 <!-- <div class="banner-img"></div> -->
               </li>
               <li class="swiper-slide">
-                <img src="../../static/uploads/banner5.jpg" alt="">
+                <img src="../../static/uploads/banner4.jpg" alt="">
                 <!-- <div class="banner-img"></div> -->
               </li>
               <li class="swiper-slide">

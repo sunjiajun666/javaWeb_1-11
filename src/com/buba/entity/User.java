@@ -17,30 +17,27 @@ public class User {
     private Date updateTime;
     private String comment;
 
-    public User() {
-    }
-
-    public User(Integer userId, String userName, String userPassword, String email) {
-        this.userId = userId;
-        this.userName = userName;
-        this.userPassword = userPassword;
-        this.email = email;
-    }
-
     public User(String userName, String userPassword, String email) {
         this.userName = userName;
         this.userPassword = userPassword;
         this.email = email;
     }
 
-    public User(Integer userId, String userName, String userPassword, String email, Date createTime, Date updateTime, String comment) {
-        this.userId = userId;
+    public User(String userName, String userPassword) {
         this.userName = userName;
         this.userPassword = userPassword;
-        this.email = email;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
-        this.comment = comment;
+    }
+
+    public User() {
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 
     public Integer getUserId() {
@@ -97,18 +94,5 @@ public class User {
 
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", userPassword='" + userPassword + '\'' +
-                ", email='" + email + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", comment='" + comment + '\'' +
-                '}';
     }
 }

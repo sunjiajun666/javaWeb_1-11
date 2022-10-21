@@ -1,9 +1,15 @@
 package com.buba.dao.Impl;
 
+import com.alibaba.druid.util.JdbcUtils;
+import com.buba.controller.JumpHtmlServlet;
 import com.buba.dao.UserDao;
+import com.buba.entity.Book;
 import com.buba.entity.User;
 import com.buba.utils.JDBCUtils;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+
+import java.util.List;
 
 /**
  * Author:SmallTiger
@@ -12,14 +18,35 @@ import org.springframework.jdbc.core.JdbcTemplate;
  */
 public class UserDaoImpl implements UserDao {
     private JdbcTemplate jdbcTemplate = new JdbcTemplate(JDBCUtils.getDateSource());
-    @Override
-    public int addUserDao(User user) {
-        String sql = "";
-        return 0;
-    }
 
     @Override
-    public int findUserByNameAndPassword(String userName, Integer userPassword) {
-        return 0;
+    public int login(User user) {
+
+        String sql="insert into t_user(user_name,user_password,email)   values(?,?,?) ";
+        int update = jdbcTemplate.update(sql,user.getUserName(), user.getUserPassword(), user.getEmail());
+        return update;
+    }
+
+
+    @Override
+    public int logout(String userName, String userPassword) {
+        String sql="select count(*) from t_user where user_name=? and user_password=?";
+        int update = jdbcTemplate.queryForObject(sql,Integer.class,userName,userPassword);
+        return update;
+    }
+
+
+    @Override
+    public List<Book> fillBook(Integer booId) {
+        String sql="select * from t_book limit ?,10";
+        List<Book> query = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Book.class),(booId-1)*10);
+        return query;
+    }
+    @Override
+    public int fillbookcont() {
+        String sql="select count(*) from t_book ";
+        Integer integer = jdbcTemplate.queryForObject(sql, Integer.class);
+
+        return integer;
     }
 }

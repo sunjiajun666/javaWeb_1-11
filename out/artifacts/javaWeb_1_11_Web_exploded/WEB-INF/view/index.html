@@ -142,11 +142,11 @@
           <div class="title">图书列表</div>
           <div class="price-search">
             <span>价格:</span>
-            <input type="text">
+            <input type="text" name="minPrice" id="minPrice" th:value="${session.minprice}" >
             <span>-元</span>
-            <input type="text">
+            <input type="text" name="maxPrice" id="maxPrice" th:value="${session.maxprice}">
             <span>元</span>
-            <button>查询</button>
+            <button id="btnprice">查询</button>
           </div>
         </div>
         <div class="list-content">
@@ -167,8 +167,8 @@
           <input style="margin-left: 5px"  type="button"  class="inpbtn"  th:disabled="${session.booId==1}"  value="首页" th:onclick="|page(1)|">
           <input type="button" style="width: 60px" class="inpbtn" value="上一页" th:disabled="${session.booId==1}"  th:onclick="|page(${session.booId-1})|">
         <div> <ul >
-<!--          <li class="active" style="float: left" > <div class=".e" style="float: left"  th:each="item :${in}">-->
-<!--            <button id="bttn"  th:onclick="|page(${item})|" style="float: left"  th:text="${item}"></button></div> </li></ul></div>-->
+          <li class="active" style="float: left" > <div class=".e" style="float: left"  th:each="item :${in}">
+            <button id="bttn"  th:onclick="|page(${item})|" style="float: left"  th:text="${item}"></button></div> </li></ul></div>
 
           <input type="button" style="width: 60px" value="下一页" th:disabled="${session.booId==session.cont}"  th:onclick="|page(${session.booId+1})|">
           <input type="button" value="末页" th:disabled="${session.booId==session.cont}" th:onclick="|page(${session.cont})|">
@@ -340,12 +340,29 @@
     }
   })
 
-  function page(booId ){
-   window.location.href=" http://localhost:8080/index?booId="+booId;
 
+
+  var minPrice=document.getElementById("minPrice")
+  var maxPrice=document.getElementById("maxPrice")
+  var btnprice= document.getElementById("btnprice")
+  btnprice.onclick = function(booId){
+    if(minPrice.value != false && maxPrice.value != false){
+      window.location.href = "index?minPrice="+minPrice.value+"&maxPrice="+maxPrice.value;
+    }else{
+      window.location.href = "index";
+    }
   }
 
 
+  function page(booId){
+    if(minPrice.value != false && maxPrice.value != false){
+      window.location.href = "index?minPrice="+minPrice.value+"&maxPrice="+maxPrice.value + "&booId=" + booId;
+
+    }else {
+      window.location.href=" http://localhost:8080/index?booId="+booId;
+    }
+
+  }
   //最小数
   var pagid=1;
   //最大页码的inupt用来获取最大页码的值
@@ -384,37 +401,37 @@
     console.log("111")
   }
 
-  // 获取当前li(页码)
-  var active = document.querySelector(".active");
-  var e = document.querySelector(".e");
-  // 让当前页码和其上下兄弟显示
-  active.style.display = "block";
-  if(active.innerText == "1"){
-    active.nextElementSibling.style = "block";
-    active.nextElementSibling.nextElementSibling.style = "block";
-    active.nextElementSibling.nextElementSibling.nextElementSibling.style = "block";
-    active.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.style = "block";
-  }else if(active.innerText == e.innerText){
-    active.previousElementSibling.style = "block";
-    active.previousElementSibling.previousElementSibling.style = "block";
-    active.previousElementSibling.previousElementSibling.previousElementSibling.style = "block";
-    active.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.style = "block";
-  }else if(active.innerText == "2"){
-    active.previousElementSibling.style = "block";
-    active.nextElementSibling.style = "block";
-    active.nextElementSibling.nextElementSibling.style = "block";
-    active.nextElementSibling.nextElementSibling.nextElementSibling.style = "block";
-  }else if(Number(active.innerText) == Number(e.innerText)-1){
-    active.previousElementSibling.style = "block";
-    active.previousElementSibling.previousElementSibling.style = "block";
-    active.previousElementSibling.previousElementSibling.previousElementSibling.style = "block";
-    active.nextElementSibling.style = "block";
-  }else{
-    active.previousElementSibling.previousElementSibling.style = "block";
-    active.previousElementSibling.style = "block";
-    active.nextElementSibling.style = "block";
-    active.nextElementSibling.nextElementSibling.style = "block";
-  }
+  // // 获取当前li(页码)
+  // var active = document.querySelector(".active");
+  // var e = document.querySelector(".e");
+  // // 让当前页码和其上下兄弟显示
+  // active.style.display = "block";
+  // if(active.innerText == "1"){
+  //   active.nextElementSibling.style = "block";
+  //   active.nextElementSibling.nextElementSibling.style = "block";
+  //   active.nextElementSibling.nextElementSibling.nextElementSibling.style = "block";
+  //   active.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.style = "block";
+  // }else if(active.innerText == e.innerText){
+  //   active.previousElementSibling.style = "block";
+  //   active.previousElementSibling.previousElementSibling.style = "block";
+  //   active.previousElementSibling.previousElementSibling.previousElementSibling.style = "block";
+  //   active.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.style = "block";
+  // }else if(active.innerText == "2"){
+  //   active.previousElementSibling.style = "block";
+  //   active.nextElementSibling.style = "block";
+  //   active.nextElementSibling.nextElementSibling.style = "block";
+  //   active.nextElementSibling.nextElementSibling.nextElementSibling.style = "block";
+  // }else if(Number(active.innerText) == Number(e.innerText)-1){
+  //   active.previousElementSibling.style = "block";
+  //   active.previousElementSibling.previousElementSibling.style = "block";
+  //   active.previousElementSibling.previousElementSibling.previousElementSibling.style = "block";
+  //   active.nextElementSibling.style = "block";
+  // }else{
+  //   active.previousElementSibling.previousElementSibling.style = "block";
+  //   active.previousElementSibling.style = "block";
+  //   active.nextElementSibling.style = "block";
+  //   active.nextElementSibling.nextElementSibling.style = "block";
+  // }
 
 
 </script>

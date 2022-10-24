@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Book {
     private Integer bookId;
-    private String  name;
+    private String  Name;
     private Double  price;
     private String  author;
     private Integer sales;
@@ -14,14 +14,41 @@ public class Book {
     private Date    updateTime;
     private String  comment;
 
-    public Book(String name, Double price, String author, Integer sales, Integer stock, String imgPath) {
+    public Book(Integer bookId, String Name, Double price, String author, Integer sales, Integer stock, String imgPath, Date createTime, Date updateTime, String comment) {
+        this.bookId = bookId;
+        this.Name = Name;
+        this.price = price;
+        this.author = author;
+        this.sales = sales;
+        this.stock = stock;
         this.imgPath = imgPath;
-        this.name = name;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+        this.comment = comment;
+    }
+
+    public Book(String Name, Double price, String author, Integer sales, Integer stock, String imgPath) {
+        this.imgPath = imgPath;
+        this.Name = Name;
         this.price = price;
         this.author = author;
         this.sales = sales;
         this.stock = stock;
 
+    }
+
+    public Book(String name, Double price, String author, Integer sales, Integer stock) {
+        Name = name;
+        this.price = price;
+        this.author = author;
+        this.sales = sales;
+        this.stock = stock;
+    }
+
+    public Book(Double price, Integer sales, Integer stock) {
+        this.price = price;
+        this.sales = sales;
+        this.stock = stock;
     }
 
     public Book() {
@@ -36,11 +63,11 @@ public class Book {
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String Name) {
+        this.Name = Name;
     }
 
     public Double getPrice() {
@@ -107,24 +134,13 @@ public class Book {
         this.comment = comment;
     }
 
-    public Book(Integer bookId, String name, Double price, String author, Integer sales, Integer stock, String imgPath, Date createTime, Date updateTime, String comment) {
-        this.bookId = bookId;
-        this.name = name;
-        this.price = price;
-        this.author = author;
-        this.sales = sales;
-        this.stock = stock;
-        this.imgPath = imgPath;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
-        this.comment = comment;
-    }
+
 
     @Override
     public String toString() {
         return "Book{" +
                 "bookId=" + bookId +
-                ", name='" + name + '\'' +
+                ", Name='" + Name + '\'' +
                 ", price=" + price +
                 ", author='" + author + '\'' +
                 ", sales=" + sales +

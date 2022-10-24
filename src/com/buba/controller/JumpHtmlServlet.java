@@ -69,6 +69,8 @@ public class JumpHtmlServlet extends ViewBaseServlet {
 
         } if (req.getParameter("method").equals("fillBook")){
             this.fillBook(req,resp);
+        }if (req.getParameter("method").equals("checkout")){
+            processTemplate("/pages/cart/checkout",req,resp);
         }
     }
 
@@ -80,7 +82,8 @@ public class JumpHtmlServlet extends ViewBaseServlet {
         System.out.println(id);
         System.out.println(password);
         System.out.println(em);
-        User user = new User(id,password,em);
+        String hashedPwd1 = DigestUtils.md5DigestAsHex(password.getBytes());
+        User user = new User(id,hashedPwd1,em);
         System.out.println(user);
         userDao.login(user);
         req.getSession().setAttribute("id",id);
@@ -128,14 +131,20 @@ public class JumpHtmlServlet extends ViewBaseServlet {
 
 
     //查询t_book数据库所有数据渲染到index
-    protected void fillBook(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void fillBook( HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer booId = 1;
         List<Book> books = userDao.fillBook(booId);
-        HttpSession session = req.getSession();
         req.setAttribute("books",books);
         processTemplate("index",req,resp);
 
 
     }
+    //筛选价格的数据
+    protected void fillbookbwetten(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    }
+
+
+
 
 }

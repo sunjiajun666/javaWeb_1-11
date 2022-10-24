@@ -13,4 +13,6 @@ public interface BookDao {
 
     int delbook(Integer book);
 int addbook(Book book);
+
+int amend(Book book);
 }

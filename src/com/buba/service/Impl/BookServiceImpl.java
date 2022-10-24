@@ -28,5 +28,10 @@ public class BookServiceImpl implements BookService {
         return bookService.addbook(book);
     }
 
+    @Override
+    public int amend(Book book) {
+        return bookService.amend(book);
+    }
+
 
 }

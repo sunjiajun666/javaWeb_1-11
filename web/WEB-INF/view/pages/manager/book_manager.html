@@ -58,24 +58,11 @@
               <td th:text="${item.sales}">200</td>
               <td th:text="${item.stock}">400</td>
               <td>
-                <a href="book_edit.html">修改</a><a th:href="@{bookHtml(method='delbook',id=${item.bookId} )}" class="del">删除</a>
+                <a th:href="@{bookHtml(method='amend', ids=${item.bookId},img=${item.imgPath},Name=${item.Name},price=${item.price},author=${item.author},sales=${item.sales},stock=${item.stock} )}">修改</a>
+                <a th:href="@{bookHtml(method='delbook',id=${item.bookId} )}"  th:onclick="|page(${session.contmax})|" class="del">删除</a>
               </td>
             </tr>
-            <tr>
-              <td>
-                <img src="../../static/uploads/huozhe.jpg" alt="" />
-              </td>
-              <td>活着</td>
-              <td>
-                100.00
-              </td>
-              <td>余华</td>
-              <td>200</td>
-              <td>400</td>
-              <td>
-                <a href="book_edit.html">修改</a><a  class="del">删除</a>
-              </td>
-            </tr>
+
           </tbody>
         </table>
         <div class="footer">

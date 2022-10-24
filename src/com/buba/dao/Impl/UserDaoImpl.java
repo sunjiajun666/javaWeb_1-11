@@ -46,7 +46,30 @@ public class UserDaoImpl implements UserDao {
     public int fillbookcont() {
         String sql="select count(*) from t_book ";
         Integer integer = jdbcTemplate.queryForObject(sql, Integer.class);
-
         return integer;
     }
+
+    @Override
+    public List<Book> fillbookbwetten(Double minm, Double maxm, Integer booId) {
+        String sql="select * from t_book where price between ? and ? limit ?,10";
+        List<Book> query = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Book.class),minm,maxm, (booId - 1) * 10);
+        return query;
+    }
+
+    @Override
+    public int bookmoney(Double minm,Double maxm) {
+        String sql="select count(*) from t_book where price between ? and ? ";
+       int query = jdbcTemplate.queryForObject(sql, Integer.class,minm,maxm);
+        return query;
+    }
+
+    @Override
+    public Double maxprice() {
+        String sql="select max(price) from t_book ";
+        Double integer = jdbcTemplate.queryForObject(sql,Double.class);
+        return integer;
+
+    }
+
+
 }

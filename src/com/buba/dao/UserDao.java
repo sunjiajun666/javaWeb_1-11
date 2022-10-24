@@ -21,4 +21,11 @@ public interface UserDao {
     List<Book> fillBook(Integer booId);
 //    查询t_book有多少条信息
     int fillbookcont();
+
+//    查询多少钱到多少钱之间的数据
+    List<Book> fillbookbwetten(Double minm ,Double maxm, Integer booId);
+
+    int bookmoney(Double minm,Double maxm);
+
+    Double maxprice();
 }
